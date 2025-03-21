@@ -1,0 +1,32 @@
+services:
+  web:
+    build: ./app
+    ports:
+      - "80:80"
+    volumes:
+      - ./app:/var/www/html
+    depends_on:
+      - db
+    networks:
+      - bookshelf-net
+      
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: bookshelf
+      MYSQL_USER: bookshelf_user
+      MYSQL_PASSWORD: bookshelf_pass
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - bookshelf-net
+      
+  internal-service:
+    build: ./internal-service
+    networks:
+      - bookshelf-net
+
+networks:
+  bookshelf-net:
+    driver: bridge 

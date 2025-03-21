@@ -1,0 +1,19 @@
+# Permitir listagem de diretórios para este diretório específico
+Options +Indexes
+
+# Garantir que todos possam acessar este diretório
+<IfModule mod_authz_core.c>
+    Require all granted
+</IfModule>
+
+# Compatibilidade com versões anteriores do Apache
+<IfModule !mod_authz_core.c>
+    Order allow,deny
+    Allow from all
+</IfModule>
+
+# Permitir acesso ao arquivo de backup
+<Files "db_backup.tar.gz">
+    Order allow,deny
+    Allow from all
+</Files> 

@@ -1,0 +1,38 @@
+# Proteger arquivos sensíveis
+<FilesMatch "^(Dockerfile|docker-compose\.yml|\.git|.*\.sh|.*\.conf)$">
+    Order deny,allow
+    Deny from all
+</FilesMatch>
+
+# Bloquear acesso a arquivos de sistema
+<FilesMatch "^\.(htaccess|htpasswd|git|svn)">
+    Order deny,allow
+    Deny from all
+</FilesMatch>
+
+# Proteger config.php
+<Files "config.php">
+    Order deny,allow
+    Deny from all
+</Files>
+
+# Desabilitar listagem de diretórios em geral (exceto para diretórios que têm seu próprio .htaccess)
+Options -Indexes
+
+# Rotas para a aplicação
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+    
+    # Evitar redirecionamento ao IP do servidor quando acessando diretórios sem barra final
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^(.+[^/])$ $1/ [R=301,L,QSA]
+    
+    # Permitir acesso ao diretório _backup e seu conteúdo
+    RewriteCond %{REQUEST_URI} ^/_backup [OR]
+    RewriteCond %{REQUEST_URI} ^/_backup/
+    RewriteRule .* - [L]
+    
+    # Bloquear acesso a pastas sensíveis
+    RewriteRule ^(\.git|\.vscode|node_modules) - [F,L]
+</IfModule> 

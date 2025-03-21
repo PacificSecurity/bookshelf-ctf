@@ -1,0 +1,19 @@
+<?php
+// Arquivo de backup da configuração antiga - NÃO USAR EM PRODUÇÃO
+// Mantido apenas para referência
+
+// Configuração do banco de dados antigo
+$db_host = 'localhost';
+$db_user = 'cHVibGlzaGVyX2Rldg==';
+$db_pass = 'U3VwM3IkM2NyM3RfMjAyMw==';
+$db_name = 'bookshelf_legacy';
+
+// Notas da migração:
+// - Sistema migrado para nova infraestrutura em 15/01/2023
+// - Senhas de usuários foram migradas para bcrypt
+// - Usuário admin_user agora usa autenticação especial no endpoint interno
+// - Usuário admin_user tem o ID 1337
+// - API interna para relatórios disponível apenas na rede local em internal-service:80/reports/
+
+// TODO: remover este arquivo após conclusão da migração completa
+?> 

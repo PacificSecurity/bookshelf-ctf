@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /.git/
+Disallow: /config.php
+
+# Flag{CTF_R0b0ts_F1rst_St3p}
+
+Allow: /confidential/
+Allow: /public/ 
